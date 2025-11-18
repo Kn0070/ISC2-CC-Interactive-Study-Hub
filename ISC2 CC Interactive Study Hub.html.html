@@ -1,0 +1,303 @@
+<!-- Chosen Palette: Warm Neutral & Teal -->
+<!-- Application Structure Plan: A tab-based SPA (Key Concepts, Vocabulary, Active Recall) was chosen to break down the study guide into focused, interactive modules. This is more usable than a single scrolling page. Key interactions include an HTML/CSS clickable diagram for the IR Lifecycle, interactive flashcards for vocabulary, and a question/answer toggle for active recall. This structure directly supports the goal of active learning and synthesis. -->
+<!-- Visualization & Content Choices: Report Info: IR Lifecycle -> Goal: Organize/Inform -> Viz: HTML/CSS clickable diagram -> Interaction: Click to reveal phase description -> Justification: More engaging and structured than a bullet list. Method: HTML/Tailwind. | Report Info: Vocabulary List -> Goal: Inform/Learn -> Viz: Digital Flashcards -> Interaction: Click to flip card, next/prev buttons -> Justification: Active recall is superior to a static table for memorization. Method: HTML/CSS/JS. | Report Info: Key Questions -> Goal: Inform/Learn -> Viz: Q&A Toggler -> Interaction: Click to reveal answer, next/prev buttons -> Justification: Simulates active recall for self-testing. Method: HTML/JS. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISC2 CC Interactive Study Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-btn.active {
+            background-color: #0d9488; 
+            color: #ffffff;
+        }
+        .flashcard-container {
+            perspective: 1000px;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flashcard-container.is-flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <div class="container mx-auto max-w-5xl p-4 sm:p-8">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-teal-700">ISC2 CC Interactive Study Hub</h1>
+            <p class="text-lg text-stone-600 mt-2">Your focused guide for the Certified in Cybersecurity Exam</p>
+        </header>
+
+        <nav class="flex justify-center space-x-2 sm:space-x-4 mb-8">
+            <button data-tab="concepts" class="tab-btn active text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-colors duration-200 hover:bg-teal-500 hover:text-white">
+                Key Concepts
+            </button>
+            <button data-tab="vocab" class="tab-btn text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-colors duration-200 hover:bg-teal-500 hover:text-white">
+                Vocabulary
+            </button>
+            <button data-tab="recall" class="tab-btn text-sm sm:text-base font-medium py-2 px-4 rounded-lg transition-colors duration-200 hover:bg-teal-500 hover:text-white">
+                Active Recall
+            </button>
+        </nav>
+
+        <main id="content-container">
+            
+            <section id="section-concepts" class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
+                    <h2 class="text-2xl font-semibold text-teal-700 mb-4">1. Incident Response (IR) Lifecycle</h2>
+                    <p class="text-stone-600 mb-6">The IR process is a six-phase cycle that begins long before an attack. Click each phase below to see its description.</p>
+                    <div class="flex flex-col space-y-4">
+                        <div class="ir-phase-item cursor-pointer p-4 bg-stone-100 rounded-lg hover:bg-stone-200 transition-colors">
+                            <h3 class="font-semibold text-lg">1. Preparation</h3>
+                            <p class="ir-phase-desc hidden mt-2 text-stone-700">This is the establishment of policies, procedures, tools, and training needed to handle an incident. Without this stage, all subsequent steps will fail.</p>
+                        </div>
+                        <div class="ir-phase-item cursor-pointer p-4 bg-stone-100 rounded-lg hover:bg-stone-200 transition-colors">
+                            <h3 class="font-semibold text-lg">2. Detection and Analysis</h3>
+                            <p class="ir-phase-desc hidden mt-2 text-stone-700">Determining if an event is a security incident and gathering data about it.</p>
+                        </div>
+                        <div class="ir-phase-item cursor-pointer p-4 bg-stone-100 rounded-lg hover:bg-stone-200 transition-colors">
+                            <h3 class="font-semibold text-lg">3. Containment</h3>
+                            <p class="ir-phase-desc hidden mt-2 text-stone-700">Limiting the scope and impact of the incident (e.g., isolating a compromised system).</p>
+                        </div>
+                        <div class="ir-phase-item cursor-pointer p-4 bg-stone-100 rounded-lg hover:bg-stone-200 transition-colors">
+                            <h3 class="font-semibold text-lg">4. Eradication</h3>
+                            <p class="ir-phase-desc hidden mt-2 text-stone-700">Eliminating the root cause of the incident (e.g., patching the exploited vulnerability).</p>
+                        </div>
+                        <div class="ir-phase-item cursor-pointer p-4 bg-stone-100 rounded-lg hover:bg-stone-200 transition-colors">
+                            <h3 class="font-semibold text-lg">5. Recovery</h3>
+                            <p class="ir-phase-desc hidden mt-2 text-stone-700">Restoring the affected systems and services to normal operation.</p>
+                        </div>
+                        <div class="ir-phase-item cursor-pointer p-4 bg-stone-100 rounded-lg hover:bg-stone-200 transition-colors">
+                            <h3 class="font-semibold text-lg">6. Post-Incident Activity (Lessons Learned)</h3>
+                            <p class="ir-phase-desc hidden mt-2 text-stone-700">Documenting what happened and improving procedures to prevent recurrence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
+                    <h2 class="text-2xl font-semibold text-teal-700 mb-4">2. Business Continuity vs. Disaster Recovery</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                            <h3 class="font-semibold text-lg text-teal-800">Business Continuity (BC)</h3>
+                            <p class="mt-2 text-stone-700">Focuses on the <strong>business</strong> side. Its primary goal is to maintain the critical functions of the organization during and immediately after a disruption. It ensures the business keeps operating.</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h3 class="font-semibold text-lg text-blue-800">Disaster Recovery (DR)</h3>
+                            <p class="mt-2 text-stone-700">Focuses on the <strong>technology</strong> side. Its goal is the technical restoration of IT infrastructure and systems that support the business. DR is a component of the overall BC plan.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
+                    <h2 class="text-2xl font-semibold text-teal-700 mb-4">3. Access Control and Least Privilege</h2>
+                     <div class="space-y-4">
+                        <div class="p-4 bg-stone-100 rounded-lg">
+                            <h3 class="font-semibold text-lg">Role-Based Access Control (RBAC)</h3>
+                            <p class="mt-2 text-stone-700">The most common enterprise model. Access permissions are grouped into <strong>Roles</strong> (e.g., 'HR Manager', 'IT Technician'), and users are assigned these roles. This simplifies management and ensures consistency.</p>
+                        </div>
+                        <div class="p-4 bg-stone-100 rounded-lg">
+                            <h3 class="font-semibold text-lg">Principle of Least Privilege</h3>
+                            <p class="mt-2 text-stone-700">A fundamental security concept. Users and processes should only be granted the <strong>minimum</strong> level of access (rights, permissions, privileges) required to perform their authorized tasks, and nothing more.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-vocab" class="hidden">
+                <p class="text-center text-stone-600 mb-4">Click the card to flip it. Use the arrows to navigate.</p>
+                <div class="flashcard-container w-full h-64 sm:h-80 cursor-pointer" id="flashcard">
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front bg-white shadow-md border border-stone-200 p-4">
+                            <span id="flashcard-term" class="text-2xl sm:text-3xl font-bold text-teal-700"></span>
+                        </div>
+                        <div class="flashcard-back bg-stone-100 shadow-md border border-stone-200 p-6">
+                            <span id="flashcard-definition" class="text-base sm:text-lg"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                    <button id="prev-card" class="py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors">&larr; Previous</button>
+                    <span id="card-counter" class="text-stone-600 font-medium"></span>
+                    <button id="next-card" class="py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors">Next &rarr;</button>
+                </div>
+            </section>
+
+            <section id="section-recall" class="hidden">
+                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
+                    <div class="mb-4">
+                        <p class="text-stone-600 font-medium mb-2" id="question-counter"></p>
+                        <p class="text-xl font-semibold" id="question-text"></p>
+                    </div>
+                    <button id="show-answer-btn" class="py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors mb-4">Show Answer</button>
+                    <div id="answer-text" class="hidden p-4 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                    </div>
+                 </div>
+                 <div class="flex justify-between items-center mt-6">
+                    <button id="prev-question" class="py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors">&larr; Previous</button>
+                    <button id="next-question" class="py-2 px-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors">Next &rarr;</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const vocabulary = [
+                { term: "CIA Triad", definition: "A model used to guide security policy. It stands for Confidentiality (preventing unauthorized disclosure), Integrity (preventing unauthorized modification), and Availability (ensuring timely and reliable access)." },
+                { term: "Vulnerability", definition: "A flaw or weakness in a system's design, implementation, or operation that could be exploited by a threat." },
+                { term: "Risk", definition: "The likelihood of a threat exploiting a vulnerability and the resulting impact. (Risk = Threat x Vulnerability)." },
+                { term: "Firewall", definition: "A network security device that monitors and filters incoming and outgoing network traffic based on an organization's previously established security policies." },
+                { term: "VPN", definition: "Virtual Private Network. A cryptographic tool that uses encryption to create a secure, encapsulated tunnel over an unsecured network (like the internet)." },
+                { term: "Social Engineering", definition: "The psychological manipulation of people into performing actions or divulging confidential information." },
+                { term: "Inventory Control", definition: "The process within Asset Management responsible for logging, tracking, and auditing all hardware and software assets, including their location and ownership status." }
+            ];
+
+            const recallQuestions = [
+                { question: "Why is Preparation considered the first stage of the Incident Response lifecycle, and what is its main output?", answer: "It's the first stage because it establishes the necessary policies, procedures, tools, and trained team *before* an incident happens, ensuring the organization is ready to respond. Its main output is the formal Incident Response Plan (IRP)." },
+                { question: "If an organization's primary concern is ensuring key business departments (like Sales) can continue taking orders even if the data center is down, are they focused on BC or DR?", answer: "They are focused on **Business Continuity (BC)**. BC's goal is to keep critical *business functions* (like sales) running during a disruption, while DR focuses on restoring the *technology* (like the data center) itself." },
+                { question: "Explain how the principle of Least Privilege works in conjunction with Role-Based Access Control (RBAC).", answer: "RBAC simplifies permissions by grouping them into roles. The principle of Least Privilege guides *how* those roles are created. Each role should only have the absolute minimum permissions necessary for someone in that role to do their job, and nothing more." },
+                { question: "A new employee starts. Instead of assigning individual file permissions, what is the most scalable way to grant them appropriate access rights?", answer: "Assign the new employee to a pre-defined **Role** (using Role-Based Access Control). This role will automatically grant them all the necessary permissions for their job function in a scalable and consistent way." },
+                { question: "What is the primary difference between a Vulnerability and a Risk?", answer: "A **Vulnerability** is a *weakness* or flaw (e.g., an unpatched server). A **Risk** is the *likelihood* that a threat will exploit that weakness and the *impact* it would cause (Risk = Threat x Vulnerability)." }
+            ];
+
+            let currentTab = 'concepts';
+            let currentCard = 0;
+            let currentQuestion = 0;
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const contentSections = {
+                concepts: document.getElementById('section-concepts'),
+                vocab: document.getElementById('section-vocab'),
+                recall: document.getElementById('section-recall')
+            };
+
+            const flashcard = document.getElementById('flashcard');
+            const flashcardTerm = document.getElementById('flashcard-term');
+            const flashcardDefinition = document.getElementById('flashcard-definition');
+            const prevCardBtn = document.getElementById('prev-card');
+            const nextCardBtn = document.getElementById('next-card');
+            const cardCounter = document.getElementById('card-counter');
+
+            const questionCounter = document.getElementById('question-counter');
+            const questionText = document.getElementById('question-text');
+            const showAnswerBtn = document.getElementById('show-answer-btn');
+            const answerText = document.getElementById('answer-text');
+            const prevQuestionBtn = document.getElementById('prev-question');
+            const nextQuestionBtn = document.getElementById('next-question');
+
+            const irPhaseItems = document.querySelectorAll('.ir-phase-item');
+
+            function renderTabs() {
+                Object.values(contentSections).forEach(section => section.classList.add('hidden'));
+                contentSections[currentTab].classList.remove('hidden');
+
+                tabButtons.forEach(btn => {
+                    if (btn.dataset.tab === currentTab) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentTab = button.dataset.tab;
+                    renderTabs();
+                });
+            });
+
+            irPhaseItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const desc = item.querySelector('.ir-phase-desc');
+                    desc.classList.toggle('hidden');
+                });
+            });
+            
+            function renderFlashcard() {
+                const card = vocabulary[currentCard];
+                flashcardTerm.textContent = card.term;
+                flashcardDefinition.textContent = card.definition;
+                cardCounter.textContent = `${currentCard + 1} / ${vocabulary.length}`;
+                flashcard.classList.remove('is-flipped');
+            }
+
+            flashcard.addEventListener('click', () => {
+                flashcard.classList.toggle('is-flipped');
+            });
+
+            nextCardBtn.addEventListener('click', () => {
+                currentCard = (currentCard + 1) % vocabulary.length;
+                renderFlashcard();
+            });
+
+            prevCardBtn.addEventListener('click', () => {
+                currentCard = (currentCard - 1 + vocabulary.length) % vocabulary.length;
+                renderFlashcard();
+            });
+
+            function renderQuestion() {
+                const q = recallQuestions[currentQuestion];
+                questionCounter.textContent = `Question ${currentQuestion + 1} of ${recallQuestions.length}`;
+                questionText.textContent = q.question;
+                answerText.innerHTML = q.answer; 
+                answerText.classList.add('hidden');
+                showAnswerBtn.textContent = 'Show Answer';
+            }
+
+            showAnswerBtn.addEventListener('click', () => {
+                answerText.classList.toggle('hidden');
+                if (answerText.classList.contains('hidden')) {
+                    showAnswerBtn.textContent = 'Show Answer';
+                } else {
+                    showAnswerBtn.textContent = 'Hide Answer';
+                }
+            });
+
+            nextQuestionBtn.addEventListener('click', () => {
+                currentQuestion = (currentQuestion + 1) % recallQuestions.length;
+                renderQuestion();
+            });
+
+            prevQuestionBtn.addEventListener('click', () => {
+                currentQuestion = (currentQuestion - 1 + recallQuestions.length) % recallQuestions.length;
+                renderQuestion();
+            });
+            
+            renderTabs();
+            renderFlashcard();
+            renderQuestion();
+        });
+    </script>
+</body>
+</html>
